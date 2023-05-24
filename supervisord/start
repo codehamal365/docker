@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+docker stop supervisord || true
+docker rm -f supervisord || true
+
+docker build --file ./supervisord/Dockerfile --force-rm --tag supervisord .
+exec docker run --rm --name supervisord -d -p 8888:8080 supervisord

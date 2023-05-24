@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+docker stop keycloak || true
+docker rm -f keycloak || true
+
+
+docker build --file ./keycloak/Dockerfile --force-rm --tag keycloak .
+exec docker run --name keycloak  -d -p 9999:8080 keycloak start-dev

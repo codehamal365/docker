@@ -1,0 +1,10 @@
+{
+  "request": {
+    "urlPath": "/random"
+  },
+  "response": {
+    "body": "{{randomValue length=33 type='ALPHANUMERIC'}}",
+    "transformers": ["response-template"],
+    "status" : 200
+  }
+}

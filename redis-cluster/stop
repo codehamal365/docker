@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+exec docker-compose \
+  --project-directory . \
+  --file redis-cluster/docker-compose.yml \
+  --project-name redis-cluster \
+  down

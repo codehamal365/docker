@@ -1,0 +1,10 @@
+1 张三 20
+2 jim 30
+1 kobe 40
+1 simon 40
+1 ramon 20
+1 lily 20
+1 frank 90
+1 random 20
+1 jack 20
+1 black 20

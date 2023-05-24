@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+docker stop nginx || true
+docker rm -f nginx || true
+
+docker build --file ./nginx/Dockerfile --force-rm --tag nginx .
+exec docker run --rm --name nginx -p 9990:8080 nginx

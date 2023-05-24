@@ -1,0 +1,28 @@
+{
+  "request": {
+    "urlPattern": "/secrets/([0-9a-zA-Z-]+)",
+    "method": "PUT",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$.value"
+      }
+    ]
+  },
+  "response": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "value": "{{jsonPath request.body '$.value'}}",
+      "id": "https://key-vault-service/secrets/{{request.path.[1]}}/version00000000",
+      "attributes": {
+        "enabled": true,
+        "created": 1654665570,
+        "updated": 1654665570,
+        "recoveryLevel": "Recoverable+Purgeable",
+        "recoverableDays": 90
+      }
+    },
+    "status": 200
+  }
+}

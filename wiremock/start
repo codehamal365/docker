@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+docker stop wiremock || true
+docker rm -f wiremock || true
+
+docker build --file wiremock/Dockerfile --force-rm --tag wiremock .
+exec docker run -d -p 8081:8080 --name wiremock wiremock

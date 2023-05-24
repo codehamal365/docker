@@ -1,0 +1,15 @@
+{
+  "request": {
+    "url": "/hello1",
+    "method": "GET"
+  },
+  "response": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "status": 200,
+    "jsonBody": {
+       "data": "hello world-another"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/dataplatform/api/v2/usecases/.*"
+  },
+  "response": {
+    "jsonBody": {
+      "id": "{{request.path.[4]}}",
+      "type": "UseCase",
+      "status": "Active",
+      "details": {
+        "departmentId": "Department-id",
+        "name": "{{request.path.[4]}}",
+        "description": "314319656-DEUGRPA.payasyoudrive",
+        "schemas": ["Schema-6268afb5-7dad-45d6-8255-88f441b677f4", "Schema-f8485cd2-f9a1-451b-b501-a6a87eebd0b7"],
+        "anonymizedMethods": [],
+        "workbenches": ["Workbench-fbea39aa-0faf-401e-b3d0-462c16c56c36"],
+        "repositories": ["Storage-87c74b08-211e-4525-81a5-aafb486d6d58"],
+        "configuration": {
+          "keepHistoricalData": null,
+          "retentionPeriod": 1,
+          "streamingTimeToConsumption": 3,
+          "partitionCount": null,
+          "readOnly": "b24808b3-5746-4d71-b37a-1e892ba8d71e",
+          "adminOnly": "3fd7d3ce-4615-4f24-87bf-6bf2e47af14c",
+          "dataLake": null
+        },
+        "metadataProperties": null
+      },
+      "creationDate": "2021-05-21T20:45:43.5436906Z",
+      "lastUpdateDate": "2021-05-21T20:52:22.4143253Z"
+
+    },
+    "status": 200
+  }
+}

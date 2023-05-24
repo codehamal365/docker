@@ -1,0 +1,97 @@
+version: '2.4'
+
+services:
+
+  redis-cluster:
+    tty: true
+    build:
+      context: .
+      dockerfile: redis-cluster/Dockerfile
+    hostname: server
+    container_name: redis-cluster
+    depends_on:
+      - redis1
+      - redis2
+      - redis3
+      - redis4
+      - redis5
+      - redis6
+    mem_limit: 100m
+
+  redis1:
+    image: redis:6.2.5-alpine
+    container_name: redis1
+    volumes:
+      - ./redis-cluster/7001/conf/redis.config:/usr/local/etc/redis/redis.conf
+      - ./redis-cluster/7001/data:/data
+    ports:
+      - "7001:7001"
+    command: redis-server /usr/local/etc/redis/redis.conf
+    mem_limit: 100m
+    environment:
+      - TZ=Asia/Shanghai
+
+  redis2:
+    image: redis:6.2.5-alpine
+    container_name: redis2
+    volumes:
+      - ./redis-cluster/7002/conf/redis.config:/usr/local/etc/redis/redis.conf
+      - ./redis-cluster/7002/data:/data
+    ports:
+      - "7002:7002"
+    command: redis-server /usr/local/etc/redis/redis.conf
+    mem_limit: 100m
+    environment:
+      - TZ=Asia/Shanghai
+
+  redis3:
+    image: redis:6.2.5-alpine
+    container_name: redis3
+    volumes:
+      - ./redis-cluster/7003/conf/redis.config:/usr/local/etc/redis/redis.conf
+      - ./redis-cluster/7003/data:/data
+    ports:
+      - "7003:7003"
+    command: redis-server /usr/local/etc/redis/redis.conf
+    mem_limit: 100m
+    environment:
+      - TZ=Asia/Shanghai
+
+  redis4:
+    image: redis:6.2.5-alpine
+    container_name: redis4
+    volumes:
+      - ./redis-cluster/7004/conf/redis.config:/usr/local/etc/redis/redis.conf
+      - ./redis-cluster/7004/data:/data
+    ports:
+      - "7004:7004"
+    command: redis-server /usr/local/etc/redis/redis.conf
+    mem_limit: 100m
+    environment:
+      - TZ=Asia/Shanghai
+
+  redis5:
+    image: redis:6.2.5-alpine
+    container_name: redis5
+    volumes:
+      - ./redis-cluster/7005/conf/redis.config:/usr/local/etc/redis/redis.conf
+      - ./redis-cluster/7005/data:/data
+    ports:
+      - "7005:7005"
+    command: redis-server /usr/local/etc/redis/redis.conf
+    mem_limit: 100m
+    environment:
+      - TZ=Asia/Shanghai
+
+  redis6:
+    image: redis:6.2.5-alpine
+    container_name: redis6
+    volumes:
+      - ./redis-cluster/7006/conf/redis.config:/usr/local/etc/redis/redis.conf
+      - ./redis-cluster/7006/data:/data
+    ports:
+      - "7006:7006"
+    command: redis-server /usr/local/etc/redis/redis.conf
+    mem_limit: 100m
+    environment:
+      - TZ=Asia/Shanghai

@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+#sh ./redis-cluster/config/redis-cluster-config.sh
+
+exec docker-compose \
+        --project-directory . \
+        --file redis-cluster/docker-compose.yml \
+        --project-name redis-cluster \
+        up -d
