@@ -8,8 +8,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: root
       MYSQL_DATABASE: mydatabase
-    volumes:
-      - ./data:/var/lib/mysql
+#    volumes:
+#      - ./data:/var/lib/mysql
     ports:
       - 3306:3306
 

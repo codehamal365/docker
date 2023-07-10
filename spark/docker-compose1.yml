@@ -1,0 +1,99 @@
+version: '2'
+
+services:
+  spark:
+    image: bitnami/spark:3.2.4
+    hostname: master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    volumes:
+      - ~/docker/spark/app/:/opt/bitnami/spark/app/
+      - ~/docker/spark/lib/elasticsearch-hadoop-8.7.1.jar:/opt/bitnami/spark/jars/elasticsearch-hadoop.jar
+    ports:
+      - '8080:8080'
+      - '4040:4040'
+    networks:
+      - spark-es
+
+  spark-worker-1:
+    image: bitnami/spark:3.2.4
+    hostname: worker1
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://master:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    volumes:
+      - ~/docker/spark/app/:/opt/bitnami/spark/app/
+      - ~/bin/spark-3.4.0-bin-hadoop3/elasticsearch-hadoop-8.7.1.jar:/opt/bitnami/spark/jars/elasticsearch-hadoop.jar
+    ports:
+      - '8081:8081'
+    networks:
+      - spark-es
+
+  spark-worker-2:
+    image: bitnami/spark:3.2.4
+    hostname: worker2
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://master:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    volumes:
+      - ~/docker/spark/app/:/opt/bitnami/spark/app/
+      - ~/bin/spark-3.4.0-bin-hadoop3/elasticsearch-hadoop-8.7.1.jar:/opt/bitnami/spark/jars/elasticsearch-hadoop.jar
+    ports:
+      - '8082:8081'
+    networks:
+      - spark-es
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=elasticsearch-cluster
+      - discovery.seed_hosts=elasticsearch
+      - cluster.initial_master_nodes=elasticsearch
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "127.0.0.1:9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - spark-es
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.16.2
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+    ports:
+      - "5601:5601"
+    networks:
+      - spark-es
+
+volumes:
+  elasticsearch-data:
+
+networks:
+  spark-es:
+    driver: bridge
